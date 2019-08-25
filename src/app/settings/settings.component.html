@@ -1,0 +1,18 @@
+<div fxLayout="column">
+  <h1 class="mat-display-1">
+    Settings
+  </h1>
+
+  <div class="form">
+    <mat-form-field fxLayout="column">
+      <input matInput type="text" placeholder="Location" [(ngModel)]="settings.location" />
+    </mat-form-field>
+
+    <mat-form-field fxLayout="column">
+      <input matInput type="password" placeholder="Key" [(ngModel)]="settings.key" />
+    </mat-form-field>
+
+    <button mat-button (click)="save()">Speichern</button>
+    <span class="mat-body" [hidden]="!status">{{status }}</span>
+  </div>
+</div>
