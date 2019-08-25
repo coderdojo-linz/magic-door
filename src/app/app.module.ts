@@ -17,6 +17,9 @@ import { SettingsComponent } from './settings/settings.component';
 import { DataAccessService } from './data-access.service';
 import { AppLoadService } from './app-load.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DetectComponent } from './detect/detect.component';
+import { FaceDetectorComponent } from './face-detector/face-detector.component';
+import { RecognizedComponent } from './recognized/recognized.component';
 
 function initialize(appLoadService: AppLoadService) {
   return () => appLoadService.initialize();
@@ -28,7 +31,10 @@ function initialize(appLoadService: AppLoadService) {
     WelcomeComponent,
     WizardComponent,
     TakePictureComponent,
-    SettingsComponent
+    SettingsComponent,
+    DetectComponent,
+    FaceDetectorComponent,
+    RecognizedComponent
   ],
   imports: [
     BrowserModule,

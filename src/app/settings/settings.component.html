@@ -12,6 +12,10 @@
       <input matInput type="password" placeholder="Key" [(ngModel)]="settings.key" />
     </mat-form-field>
 
+    <mat-form-field fxLayout="column">
+      <input matInput type="number" placeholder="Video width" [(ngModel)]="settings.videoWidth" />
+    </mat-form-field>
+
     <button mat-button (click)="save()">Speichern</button>
     <span class="mat-body" [hidden]="!status">{{status }}</span>
   </div>

@@ -1,30 +1,22 @@
 <div fxFlex fxLayoutAlign="center">
-  <div fxLayout="column">
+  <div fxLayout="column" class="container">
     <h1 class="mat-display-1">
       Kennenlernen
     </h1>
 
     <mat-form-field class="mat-body" fxLayout="column">
-      <input matInput type="text" placeholder="Verrate mir bitte deinen Namen" />
+      <input matInput type="text" [(ngModel)]="name" placeholder="Verrate mir bitte deinen Namen" />
     </mat-form-field>
 
-    <div fxLayout="row" class="camera">
-      <webcam #webcam [width]="videoWidth" [trigger]="takePicture"></webcam>
-      <div fxLayout="column">
-        <img *ngFor="let i of images" [src]="!i ? '/assets/camera.svg' : i.imageAsDataUrl" />
+    <div [hidden]="!name">
+      <div fxLayout="row" class="camera">
+        <app-face-detector></app-face-detector>
+        <div fxLayout="column">
+          <img *ngFor="let i of images" [src]="!i ? '/assets/camera.svg' : i.imageUrl" />
+        </div>
       </div>
     </div>
 
-    <button #takePictureButton mat-raised-button [disabled]="working">
-      Foto machen
-    </button>
-
-    <p [hidden]="!working" class="mat-body">
-      Moment, ich verarbeite das Bild...
-    </p>
-    <p [hidden]="!noFaceInImage" class="mat-body">
-      Oh, in diesem Bild sehe ich aber kein Gesicht.<br/>
-      Probiere es bitte nochmals.
-    </p>
+    <a mat-button routerLink="/">Zurück zum Anfang</a>
   </div>
 </div>
