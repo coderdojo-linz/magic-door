@@ -20,6 +20,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { DetectComponent } from './detect/detect.component';
 import { FaceDetectorComponent } from './face-detector/face-detector.component';
 import { RecognizedComponent } from './recognized/recognized.component';
+import { BackToStartComponent } from './back-to-start/back-to-start.component';
+import {MatIconModule} from '@angular/material/icon';
 
 function initialize(appLoadService: AppLoadService) {
   return () => appLoadService.initialize();
@@ -34,7 +36,8 @@ function initialize(appLoadService: AppLoadService) {
     SettingsComponent,
     DetectComponent,
     FaceDetectorComponent,
-    RecognizedComponent
+    RecognizedComponent,
+    BackToStartComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ function initialize(appLoadService: AppLoadService) {
     HttpClientModule,
     FormsModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule
   ],
   providers: [
     DataAccessService,

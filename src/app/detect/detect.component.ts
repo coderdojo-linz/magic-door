@@ -31,10 +31,7 @@ export class DetectComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.takePictureSubscription = this.detector.faceDetected.subscribe(async (face: DetectedFaceImage) => {
-        await this.dal.saveFace('', face.faceId);
-
-        let faces = await this.detectionService.findSimilar(face.faceId);
-        faces = faces.filter(f => f.faceId !== face.faceId);
+        const faces = await this.detectionService.findSimilar(face.faceId);
         let maxConfidence = 0;
         let maxConfidenceFace: RecognizedFace;
         for (const f of faces) {
@@ -45,9 +42,9 @@ export class DetectComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         if (maxConfidenceFace) {
-          const knownFace = await this.dal.getFaceById(maxConfidenceFace.faceId);
+          const knownFace = await this.dal.getFaceById(maxConfidenceFace.persistedFaceId);
           if (knownFace) {
-            this.router.navigateByUrl(`/recognized?faceId=${knownFace.faceId}&name=${knownFace.name}`);
+            this.router.navigateByUrl(`/recognized?faceId=${knownFace.faceId}&name=${knownFace.name}&confidence=${maxConfidence}`);
             return;
           }
         }

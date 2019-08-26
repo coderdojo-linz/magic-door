@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular
 import { Subscription } from 'rxjs';
 import { DataAccessService } from '../data-access.service';
 import { FaceDetectorComponent, DetectedFaceImage } from '../face-detector/face-detector.component';
+import { FaceDetectionService } from '../face-detection.service';
 
 @Component({
   selector: 'app-take-picture',
@@ -16,7 +17,7 @@ export class TakePictureComponent implements OnInit, AfterViewInit, OnDestroy {
   imageIndex = 0;
   name = '';
 
-  constructor(private dal: DataAccessService) {
+  constructor(private dal: DataAccessService, private faceDetection: FaceDetectionService) {
   }
 
   ngOnDestroy(): void {
@@ -31,7 +32,8 @@ export class TakePictureComponent implements OnInit, AfterViewInit, OnDestroy {
         this.images[this.imageIndex] = face;
         this.imageIndex = ++this.imageIndex % 3;
 
-        await this.dal.saveFace(this.name, face.faceId);
+        const persistedFaceId = await this.faceDetection.addFaceToFacelist(face.imageData, this.name);
+        await this.dal.saveFace(this.name, persistedFaceId);
     });
   }
 }

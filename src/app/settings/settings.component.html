@@ -16,7 +16,16 @@
       <input matInput type="number" placeholder="Video width" [(ngModel)]="settings.videoWidth" />
     </mat-form-field>
 
-    <button mat-button (click)="save()">Speichern</button>
+    <div fxLayout="column">
+      <p class="mat-body" [hidden]="faceListIsOk">Face list does not exists yet. Don't forget to create it!</p>
+      <div fxLayout="row">
+        <button mat-raised-button (click)="recreateFaceList()">(Re)create Face List</button>
+      </div>
+    </div>
+
+    <button mat-raised-button (click)="save()">Speichern</button>
     <span class="mat-body" [hidden]="!status">{{status }}</span>
   </div>
+
+  <app-back-to-start></app-back-to-start>
 </div>

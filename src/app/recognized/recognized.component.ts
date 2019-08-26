@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recognized',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecognizedComponent implements OnInit {
 
-  constructor() { }
+  faceId: string;
+  name: string;
+  confidence: number;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(map => {
+      this.faceId = map.get('faceId');
+      this.name = map.get('name');
+      this.confidence = parseFloat(map.get('confidence'));
+    });
   }
-
 }
