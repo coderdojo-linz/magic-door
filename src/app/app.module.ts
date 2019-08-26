@@ -54,8 +54,7 @@ function initialize(appLoadService: AppLoadService) {
   ],
   providers: [
     DataAccessService,
-    AppLoadService,
-    { provide: APP_INITIALIZER, useFactory: initialize, deps: [AppLoadService], multi: true }
+    AppLoadService
   ],
   bootstrap: [AppComponent]
 })
