@@ -23,7 +23,7 @@ import { RecognizedComponent } from './recognized/recognized.component';
 import { BackToStartComponent } from './back-to-start/back-to-start.component';
 import {MatIconModule} from '@angular/material/icon';
 
-function initialize(appLoadService: AppLoadService) {
+export function initialize(appLoadService: AppLoadService) {
   return () => appLoadService.initialize();
 }
 
@@ -54,7 +54,8 @@ function initialize(appLoadService: AppLoadService) {
   ],
   providers: [
     DataAccessService,
-    AppLoadService
+    AppLoadService,
+    { provide: APP_INITIALIZER, useFactory: initialize, deps: [AppLoadService], multi: true }
   ],
   bootstrap: [AppComponent]
 })
