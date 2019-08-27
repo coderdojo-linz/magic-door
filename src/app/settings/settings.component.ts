@@ -8,9 +8,7 @@ import { FaceDetectionService } from '../face-detection.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  private readonly faceListId = 'aec2019';
-
-  settings: Settings = { version: 'v1', location: '', key: '', videoWidth: 0 };
+  settings: Settings = { version: 'v1', location: '', key: '', videoWidth: 0, faceListId: '' };
   status = '';
   faceListIsOk = true;
 
@@ -46,6 +44,7 @@ export class SettingsComponent implements OnInit {
     try {
       await this.detection.addFaceList('Ars Electronica Festival 2019');
       this.status = 'Face list (re)created';
+      this.faceListIsOk = true;
     } catch {
       this.status = 'Error while (re)creating face list';
     }

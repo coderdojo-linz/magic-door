@@ -21,8 +21,6 @@ export interface FaceList {
   providedIn: 'root'
 })
 export class FaceDetectionService {
-  private readonly faceListId = 'aec2019';
-
   constructor(private http: HttpClient, private dal: DataAccessService) {
   }
 
@@ -73,7 +71,7 @@ export class FaceDetectionService {
     return new Promise<RecognizedFace[]>((res, rej) => {
       this.http.post(url, {
         faceId,
-        faceListId: this.faceListId
+        faceListId: settings.faceListId
       }, { headers })
         .subscribe({
           next: (result: RecognizedFace[]) => res(result),
@@ -85,7 +83,7 @@ export class FaceDetectionService {
   public async getFaceList() {
     const settings = await this.dal.getSettings();
 
-    const url = this.buildUrl(settings, `facelists/${this.faceListId}`);
+    const url = this.buildUrl(settings, `facelists/${settings.faceListId}`);
     const headers = { 'Ocp-Apim-Subscription-Key': settings.key };
 
     return new Promise<FaceList>((res, rej) => {
@@ -100,7 +98,7 @@ export class FaceDetectionService {
   public async addFaceList(name: string) {
     const settings = await this.dal.getSettings();
 
-    const url = this.buildUrl(settings, `facelists/${this.faceListId}`);
+    const url = this.buildUrl(settings, `facelists/${settings.faceListId}`);
     const headers = {
       'Ocp-Apim-Subscription-Key': settings.key,
       'Content-Type': 'application/json'
@@ -115,7 +113,7 @@ export class FaceDetectionService {
   public async deleteFaceList() {
     const settings = await this.dal.getSettings();
 
-    const url = this.buildUrl(settings, `facelists/${this.faceListId}`);
+    const url = this.buildUrl(settings, `facelists/${settings.faceListId}`);
     const headers = {
       'Ocp-Apim-Subscription-Key': settings.key,
       'Content-Type': 'application/json'
@@ -132,7 +130,7 @@ export class FaceDetectionService {
 
     const url = this.buildUrl(
       settings,
-      `facelists/${this.faceListId}/persistedFaces?userData=${encodeURI(name)}`
+      `facelists/${settings.faceListId}/persistedFaces?userData=${encodeURI(name)}`
     );
     const headers = {
       'Ocp-Apim-Subscription-Key': settings.key,

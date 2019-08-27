@@ -16,7 +16,15 @@
       <input matInput type="number" placeholder="Video width" [(ngModel)]="settings.videoWidth" />
     </mat-form-field>
 
-    <div fxLayout="column">
+    <mat-form-field fxLayout="column">
+      <input matInput type="text" placeholder="Facelist ID" [(ngModel)]="settings.faceListId"
+        pattern="^([a-z\-_0-9]){1,64}$" #faceListId="ngModel" />
+    </mat-form-field>
+    <p [hidden]="faceListId.valid" class="mat-body">
+      Face list darf nur auf Kleinbuchstaben, Bindestrich und Underscore bestehen
+    </p>
+
+    <div fxLayout="column" [hidden]="!settings?.faceListId">
       <p class="mat-body" [hidden]="faceListIsOk">Face list does not exists yet. Don't forget to create it!</p>
       <div fxLayout="row">
         <button mat-raised-button (click)="recreateFaceList()">(Re)create Face List</button>

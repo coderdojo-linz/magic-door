@@ -6,6 +6,7 @@ export interface Settings {
   location: string;
   key: string;
   videoWidth: number;
+  faceListId: string;
 }
 
 export interface Face {
@@ -32,7 +33,7 @@ export class DataAccessService {
   }
 
   public async getSettings(): Promise<Settings> {
-    return (await this.db.get('settings', 'v1')) || { version: 'v1', location: 'westeurope', key: '', videoWidth: 350 };
+    return (await this.db.get('settings', 'v1')) || { version: 'v1', location: 'westeurope', key: '', videoWidth: 350, faceListId: '' };
   }
 
   public async saveSettings(settings: Settings) {
